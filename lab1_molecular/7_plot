@@ -2,6 +2,6 @@ set terminal png
 set output 'plot_7.png'
 stats 'square7' nooutput
 stats 'triangle7' nooutput
-set xrange [0.2:1.1]
-set yrange [-0.23:0]
+set xrange [0.2:0.55]
+set yrange [-0.04:0]
 plot 'square7'  with lines title "square L_x=7", 'triangle7' with lines title "triangle L_x=7" 
