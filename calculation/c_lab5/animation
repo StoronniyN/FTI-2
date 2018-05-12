@@ -1,0 +1,9 @@
+set terminal gif animate delay 10 size 600,600
+set output 'foobar.gif'
+stats 'test.dat' nooutput
+set xrange [-5:5]
+set yrange [-1:1]
+
+do for [i=1:int(STATS_blocks)] {
+    plot 'test.dat' index (i-1) using 1:2 with lines notitle
+}

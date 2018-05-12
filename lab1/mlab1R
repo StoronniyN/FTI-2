@@ -1,0 +1,1 @@
+gnuplot -c Rplot && mirage R.png

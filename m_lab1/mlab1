@@ -1,0 +1,1 @@
+g++ -Wall lab-22.03.18.cpp -o lab1 && ./lab1 

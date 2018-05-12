@@ -1,0 +1,9 @@
+set xlabel "N"
+set ylabel "Temperature"
+set terminal png
+set size square 
+set output 'plot_temperature.png'
+stats 'data.txt' nooutput
+set xrange [-1:10]
+set yrange [-1:10]
+plot 'data.txt'  with points notitle

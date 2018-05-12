@@ -1,0 +1,1 @@
+gnuplot -c animation32 && mirage foobar.gif

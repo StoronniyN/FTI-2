@@ -1,0 +1,6 @@
+set terminal png
+set output 'plot_temperature_av.png'
+stats 'test.dat' nooutput
+set xrange [-7:7]
+set yrange [-0.01:1.1]
+plot 'test.dat'  with lines 

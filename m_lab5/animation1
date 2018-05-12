@@ -1,0 +1,19 @@
+set terminal gif animate delay 100
+set output 'foobar.gif'
+stats 'start' nooutput
+set xrange [0:10]
+set yrange [0:10]
+set size square
+#set format x ""
+#set format y ""
+set tics scale 0
+set xtics 1.5
+set ytics 1.5
+unset xtics
+unset ytics
+#set grid xtics ytics mxtics mytics
+set for [i=0:10:1] arrow from i,0 to i,10 nohead
+set for [j=0:10:1] arrow from 0,j to 10,j nohead
+do for [i=1:int(STATS_blocks)] {
+    plot 'start' index (i-1) using 1:2 with points pt 5 ps 6 lc rgb 'red-orange' notitle 
+}

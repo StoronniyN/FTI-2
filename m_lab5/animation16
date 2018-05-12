@@ -1,0 +1,31 @@
+set terminal gif animate delay 1000 # size 700,700
+set key tmargin center
+set output 'foobar.gif'
+stats 'coordinates' nooutput
+# for 10
+#set xrange [0:4]
+#set yrange [0:4]
+set grid xtics ytics mxtics mytics
+#set for [i=0:4:1] arrow from i,0 to i,4 nohead
+#set for [j=0:4:1] arrow from 0,j to 4,j nohead
+#for 16
+#set xrange [0:32]
+#set yrange [0:32]
+#set for [i=0:32:1] arrow from i,0 to i,32 nohead
+#set for [j=0:32:1] arrow from 0,j to 32,j nohead
+set size square
+set xrange [0:16]
+set yrange [0:16]
+set for [i=0:16:1] arrow from i,0 to i,16 nohead
+set for [j=0:16:1] arrow from 0,j to 16,j nohead
+#set format x ""
+#set format y ""
+set tics scale 0
+set xtics 1.5
+set ytics 1.5
+unset xtics
+unset ytics
+# for 16 = 4.15, for 32 = 3, for 4 = 16.86 
+do for [i=1:int(STATS_blocks)] {
+    plot 'coordinates' index (i-1) using 1:2 with points pt 5 ps 4.15 lc rgb 'red-orange' notitle, 'coordinates' index (i-1) using 1:2 with points pt 5 ps 0.1 lc rgb 'red-orange' title columnheader(i-1) 
+}

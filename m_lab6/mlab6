@@ -1,0 +1,1 @@
+g++ -Wall mlab6.cpp -o lab6 && ./lab6

@@ -1,0 +1,1 @@
+g++ -Wall lab5.cpp -o lab5 && ./lab5
