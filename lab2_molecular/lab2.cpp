@@ -20,7 +20,7 @@ double length[number_of_particles][number_of_particles];
 const double epsilon=0.0031, lattice_constant=40, dt=0.001, primary_velocity = 1;
 double temperature_average, temperature_desired, temperature_prev, temperature, temperature_sum, kin_energy[NTIME], pot_energy[NTIME];
 int stop = 0;
-double R, Z, dx, dy, sigma=0;
+double R, Z, dx, dy, sigma=0.01;
 const int control_point_1=10/dt, control_point_2=50/dt, control_point_3=100/dt; //steps at which temperature control starts
 double random(double min, double max)
 {
@@ -61,7 +61,7 @@ square5.open("square5");
 square7.open("square7");
 		preference="square5";
 		L_x=5;
-		L_y=sqrt(3)*L_x/2;
+		L_y=L_x*(sqrt(3)/2);
 	for (int i=0; i<number_of_particles; i++)
 	{
 		for (int j=0; j<number_of_particles; j++)
@@ -132,13 +132,12 @@ square7.open("square7");
 	cout << preference << ", L_x = " << L_x << endl;
 
 	if(preference=="square5" or preference=="square7"){
-		a=sqrt(L_x*L_y)/(n_c-1);
-		h = sqrt(3)*a/2; 
+		a=sqrt(L_x*L_y)/(n_c);
 		for (int i=0; i<u;  i++)
 		{
 			for (int j=0; j<u; j++){
-				coord[i*u+j][0].x=  j*a;
-				coord[i*u+j][0].y=i*h;
+				coord[i*u+j][0].x= j*a;
+				coord[i*u+j][0].y=i*a;
 				//cout <<  coord[i][0].x << " " << coord[i][0].y << endl;
 				if(preference=="square5"){
 				write_sq_5 <<  coord[i*u+j][0].x << " " << coord[i*u+j][0].y << endl;
@@ -195,9 +194,15 @@ square7.open("square7");
 		}
 		cout << "MIN_ENERGY = " << min_energy << endl; 
 		cout << "SIGMA = " << sigma_min << endl; 
+		cout << "DENSITY = " << pow(n_c,2)/(L_x*L_y);
+		cout << endl;
 		pot_energy[0]=min_energy;
 		sigma=sigma_min;
 		//sigma=0.74;
+	sigma_min=0;
+	min_energy=10000;
+	pot_energy[0]=0;
+	sigma=0;
 		cout << endl;
 		///////////////////////////////////////
 		///////////////////////////////////////		
@@ -206,7 +211,7 @@ square7.open("square7");
 		
 		preference="square7";
 		L_x=7;
-		L_y=sqrt(3)*L_x/2;
+		L_y=L_x*(sqrt(3)/2);
 
 
 
@@ -279,14 +284,13 @@ square7.open("square7");
 	sigma=0;
 	cout << preference << ", L_x = " << L_x << endl;
 	if(preference=="square5" or preference=="square7"){
-		a=sqrt(L_x*L_y)/(n_c-1);
-		h = sqrt(3)*a/2; 
+		a=sqrt(L_x*L_y)/(n_c); 
 		for (int i=0; i<u;  i++)
 		{
 			for (int j=0; j<u; j++)
 			{
-				coord[i*u+j][0].x=  j*a;
-				coord[i*u+j][0].y=i*h;
+				coord[i*u+j][0].x= j*a;
+				coord[i*u+j][0].y=i*a;
 				//cout <<  coord[i][0].x << " " << coord[i][0].y << endl;
 				if(preference=="square7"){
 				write_sq_7 <<  coord[i*u+j][0].x << " " << coord[i*u+j][0].y << endl;
@@ -339,7 +343,9 @@ square7.open("square7");
 			sigma+=0.001;
 		}
 		cout << "MIN_ENERGY = " << min_energy << endl; 
-		cout << "SIGMA = " << sigma_min << endl; 
+		cout << "SIGMA = " << sigma_min << endl;
+		cout << "DENSITY = " << pow(n_c,2)/(L_x*L_y);
+		cout << endl;
 		pot_energy[0]=min_energy;
 		sigma=sigma_min;
 		//sigma=0.74;
@@ -356,7 +362,7 @@ square7.open("square7");
 		
 		preference="triangle5";
 		L_x=5;
-		L_y=sqrt(3)*L_x/2;
+		L_y=L_x*(sqrt(3)/2);
 	for (int i=0; i<number_of_particles; i++)
 	{
 		for (int j=0; j<number_of_particles; j++)
@@ -424,18 +430,16 @@ square7.open("square7");
 	sigma=0;
 	cout << preference << ", L_x = " << L_x << endl;
 	if (preference=="triangle5" or preference=="triangle7"){
-		a=L_x/(n_c-1);
-		h = sqrt(3)*a/2; 
-		for (int i=0; i<u;  i++)
-		{
-			for (int j=0; j<u; j++)
-			{
+		a=L_x/(n_c);
+		h = a*(sqrt(3)/2);
+		for (int i=0; i<u;  i++){
+			for (int j=0; j<u; j++){
 				coord[i*u+j][0].x= i%2==0  ? j*a : j*a+a/2;
 				coord[i*u+j][0].y=i*h;
 				//cout <<  coord[i][0].x << " " << coord[i][0].y << endl;
 				if(preference=="triangle5"){
 				write_tr_5 <<  coord[i*u+j][0].x << " " << coord[i*u+j][0].y << endl;
-			}
+				}
 			}
 		}
 
@@ -486,9 +490,15 @@ square7.open("square7");
 			sigma+=0.001;
 		}
 		cout << "MIN_ENERGY = " << min_energy << endl; 
-		cout << "SIGMA = " << sigma_min << endl; 
+		cout << "SIGMA = " << sigma_min << endl;
+		cout << "DENSITY = " << pow(n_c,2)/(L_x*L_y);
+		cout << endl;
 		pot_energy[0]=min_energy;
 		sigma=sigma_min;
+	sigma_min=0;
+	min_energy=10000;
+	pot_energy[0]=0;
+	sigma=0;
 		//sigma=0.74;
 		cout << endl;
 
@@ -499,7 +509,7 @@ square7.open("square7");
 		
 		preference="triangle7";
 		L_x=7;
-		L_y=sqrt(3)*L_x/2;
+		L_y=L_x*(sqrt(3)/2);
 		
 	for (int i=0; i<number_of_particles; i++)
 	{
@@ -568,8 +578,8 @@ square7.open("square7");
 	sigma=0;
 	cout << preference << ", L_x = " << L_x << endl;
 	if (preference=="triangle5" or preference=="triangle7"){
-		a=L_x/(n_c-1);
-		h = sqrt(3)*a/2; 
+		a=L_x/(n_c);
+		h = a*(sqrt(3)/2); 
 		for (int i=0; i<u;  i++)
 		{
 			for (int j=0; j<u; j++)
@@ -628,14 +638,81 @@ square7.open("square7");
 			sigma+=0.001;
 		}
 		cout << "MIN_ENERGY = " << min_energy << endl; 
-		cout << "SIGMA = " << sigma_min << endl; 
+		cout << "SIGMA = " << sigma_min << endl;
+		cout << "DENSITY = " << pow(n_c,2)/(L_x*L_y);
+		cout << endl;
 		pot_energy[0]=min_energy;
 		sigma=sigma_min;
 		//sigma=0.74;
+	sigma_min=0;
+	min_energy=10000;
+	pot_energy[0]=0;
+	sigma=0;
 		cout << endl;
 		
 	
 	//}
+
+
+		//cout << "" << endl;
+		//cout << "" << endl;
+
+    for (int i=0; i<number_of_particles; i++)
+    {
+		velocity[i][0].x =random(-primary_velocity, primary_velocity);
+		//////cout << "v_x_" << i << "= " << velocity[i].x << endl;
+		velocity[i][0].y = random(-primary_velocity, primary_velocity);
+		//////cout << "v_y_" <<i << "= " << velocity[i].y << endl;
+	}	
+	
+// SUM[v_i] - number_of_particles*<V> = 0, <V>=SUM[v_i]
+
+	velocity_average.x = 0;
+	velocity_average.y = 0;
+	sum_of_velocities.x = 0;
+	sum_of_velocities.y = 0;
+	for (int i=0; i<number_of_particles; i++)
+	{ 
+		//average speed
+		sum_of_velocities.x += velocity[i][0].x;
+		sum_of_velocities.y += velocity[i][0].y;
+	}
+	velocity_average.x = sum_of_velocities.x/number_of_particles;
+	velocity_average.y = sum_of_velocities.y/number_of_particles;
+	for (int i=0; i<number_of_particles; i++)
+	{
+		velocity[i][0].x = velocity[i][0].x - velocity_average.x;
+		velocity[i][0].y = velocity[i][0].y - velocity_average.y;
+	}
+
+// KIN ENERGIES 0
+	for (int i=0; i<number_of_particles; i++)
+	{
+		kin_energy[0]+=(pow(velocity[i][0].x,2)+pow(velocity[i][0].y,2))/2;
+	}	
+		for (int i=0; i<number_of_particles; i++) //CHOOSE A PARTICLE TO FIND A DISTANCE
+		{
+				for ( int j=0; j<number_of_particles; j++)
+				{
+					
+					if (i==j)
+					{
+						continue;
+					}
+					delta[i][j].x=(coord[i][0].x-coord[j][0].x);
+					delta[i][j].y=(coord[i][0].y-coord[j][0].y);
+					
+					if (abs(delta[i][j].x)>L_x )
+						{
+							delta[i][j].x=((delta[i][j].x)/(abs(delta[i][j].x)))*(abs(delta[i][j].x)-L_x);
+						}
+					if (abs(delta[i][j].y)>L_y )
+						{
+							delta[i][j].y=((delta[i][j].y)/(abs(delta[i][j].y)))*(abs(delta[i][j].y)-L_y);
+						}
+					length[i][j]=sqrt(pow(delta[i][j].x,2)+pow(delta[i][j].y,2));
+				}
+		}
 	for (int i=0; i<number_of_particles; i++)
 	{
 		for (int j=0; j<number_of_particles; j++)
@@ -650,6 +727,7 @@ square7.open("square7");
 		}
 			
 	}
+
 
 	for (int i=0; i<number_of_particles; i++)
 	{
@@ -680,6 +758,25 @@ square7.open("square7");
 
 		//cout << "" << endl;
 		//cout << "" << endl;
+	kinwrite << 0 << " " << kin_energy[0] << setprecision(15)  << endl;
+	potwrite <<  0 << " " <<  pot_energy[0] << setprecision(15)  << endl; 
+	fullwrite << 0  << " " << kin_energy[0]+pot_energy[0] << setprecision(15)  << endl; 	
+
+
+double k=0;
+for (int i=0; i<number_of_particles; i++)
+{
+	k+=velocity[i][0].x+velocity[i][0].y;
+}
+k=0;
+pulse << 0 << " " << k <<endl;
+		for (int i=0; i<number_of_particles; i++) {
+			for ( int j=i+1; j<number_of_particles; j++){
+				pot_energy[0]+=4*epsilon*( pow((sigma/length[i][j]),12) - pow((sigma/length[i][j]),6) );
+			}
+		}
+//CYCLE
+
 
 write.close();
 kinwrite.close();
@@ -689,5 +786,9 @@ tempwrite.close();
 avtempwrite.close();
 partwrite.close();
 rwrite.close();
+cout << "SUM VEL = " << k << endl;
+cout << "o = " << o << endl;
+cout << "SIGMA = " << sigma << endl;
+
 	return 0;
 }

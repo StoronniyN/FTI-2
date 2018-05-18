@@ -1,4 +1,6 @@
 set terminal png
+set xlabel "sigma"
+set ylabel "Energy"
 set output 'plot_5.png'
 stats 'square5' nooutput
 stats 'triangle5' nooutput

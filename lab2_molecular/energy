@@ -7,6 +7,6 @@ set output 'plot_energy_control.png'
 stats 'potenergy' nooutput
 stats 'kinenergy' nooutput
 stats 'fullenergy' nooutput
-set xrange [0:1000000]
-set yrange [-0.1:12.8]
+set xrange [0:270000]
+set yrange [-0.25:0.1]
 plot 'kinenergy'  with lines title "kinetic energy" lw 1.5 lt rgb 'forest-green','potenergy' with lines title "potential energy"  lw 1.5 lt rgb 'blue','fullenergy' with lines title "total energy" lw 1.5 lt rgb 'black'
